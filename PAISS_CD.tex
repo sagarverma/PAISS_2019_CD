@@ -1,0 +1,442 @@
+\documentclass[landscape,a0paper,fontscale=0.292]{baposter}
+
+\usepackage[vlined]{algorithm2e}
+\usepackage{times}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+
+\usepackage{array}
+\usepackage{floatrow}
+\usepackage{mwe}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+
+\graphicspath{{images/}}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%% Some math symbols used in the text
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Format
+ \newcommand{\RotUP}[1]{\begin{sideways}#1\end{sideways}}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Multicol Settings
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \setlength{\columnsep}{0.7em}
+ \setlength{\columnseprule}{0mm}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Save space in lists. Use this after the opening of the list
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newcommand{\compresslist}{%
+ \setlength{\itemsep}{1pt}%
+ \setlength{\parskip}{0pt}%
+ \setlength{\parsep}{0pt}%
+ }
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Formating
+ \newcommand{\Matrix}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+ \newcommand{\Vector}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+ \newcommand*{\norm}[1]{\mathopen\| #1 \mathclose\|}% use instead of $\|x\|$
+ \newcommand*{\abs}[1]{\mathopen| #1 \mathclose|}% use instead of $\|x\|$
+ \newcommand*{\normLR}[1]{\left\| #1 \right\|}% use instead of $\|x\|$
+
+ \newcommand*{\SET}[1]  {\ensuremath{\mathcal{#1}}}
+ \newcommand*{\FUN}[1]  {\ensuremath{\mathcal{#1}}}
+ \newcommand*{\MAT}[1]  {\ensuremath{\boldsymbol{#1}}}
+ \newcommand*{\VEC}[1]  {\ensuremath{\boldsymbol{#1}}}
+ \newcommand*{\CONST}[1]{\ensuremath{\mathit{#1}}}
+
+ \DeclareMathOperator*{\argmax}{arg\,max}
+ \DeclareMathOperator*{\diag}{diag}
+ \DeclareMathOperator*{\argmin}{arg\,min}
+ \DeclareMathOperator*{\vectorize}{vec}
+ \DeclareMathOperator*{\reshape}{reshape}
+
+ %-----------------------------------------------------------------------------
+ % Differentiation
+ \newcommand*{\Nabla}[1]{\nabla_{\!#1}}
+
+ \renewcommand*{\d}{\mathrm{d}}
+ \newcommand*{\dd}{\partial}
+
+ \newcommand*{\At}[2]{\ensuremath{\left.#1\right|_{#2}}}
+ \newcommand*{\AtZero}[1]{\At{#1}{\pp=\VEC 0}}
+
+ \newcommand*{\diffp}[2]{\ensuremath{\frac{\dd #1}{\dd #2}}}
+ \newcommand*{\diffpp}[3]{\ensuremath{\frac{\dd^2 #1}{\dd #2 \dd #3}}}
+ \newcommand*{\diffppp}[4]{\ensuremath{\frac{\dd^3 #1}{\dd #2 \dd #3 \dd #4}}}
+ \newcommand*{\difff}[2]{\ensuremath{\frac{\d #1}{\d #2}}}
+ \newcommand*{\diffff}[3]{\ensuremath{\frac{\d^2 #1}{\d #2 \d #3}}}
+ \newcommand*{\difffp}[3]{\ensuremath{\frac{\dd\d #1}{\d #2 \dd #3}}}
+ \newcommand*{\difffpp}[4]{\ensuremath{\frac{\dd^2\d #1}{\d #2 \dd #3 \dd #4}}}
+
+ \newcommand*{\diffpAtZero}[2]{\ensuremath{\AtZero{\diffp{#1}{#2}}}}
+ \newcommand*{\diffppAtZero}[3]{\ensuremath{\AtZero{\diffpp{#1}{#2}{#3}}}}
+ \newcommand*{\difffAt}[3]{\ensuremath{\At{\difff{#1}{#2}}{#3}}}
+ \newcommand*{\difffAtZero}[2]{\ensuremath{\AtZero{\difff{#1}{#2}}}}
+ \newcommand*{\difffpAtZero}[3]{\ensuremath{\AtZero{\difffp{#1}{#2}{#3}}}}
+ \newcommand*{\difffppAtZero}[4]{\ensuremath{\AtZero{\difffpp{#1}{#2}{#3}{#4}}}}
+
+ %-----------------------------------------------------------------------------
+ % Defined
+ % How should the defined operator look like (:= or ^= ==)
+ % (I want back my :=, it is so much better than ^= because (1) it has a
+ % direction and (2) everyone here uses it.)
+ %
+ % Use :=
+ %\newcommand*{\defined}{\ensuremath{\mathrel{\mathop{:}}=}}
+ %\newcommand*{\definedRight}{\ensuremath{=\mathrel{\mathop{:}}}}
+ % Use ^=
+ \newcommand*{\defined}{\ensuremath{\triangleq}}
+ \newcommand*{\definedRight}{\ensuremath{\triangleq}}
+ % Use = with three bars
+ %\newcommand*{\defined}{\ensuremath{?}}
+ %\newcommand*{\definedRight}{\ensuremath{?}}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Symbols used in the paper
+
+ %-----------------------------------------------------------------------------
+ % The Methods
+ \newcommand*{\ICIA}{\emph{ICIA}}
+ \newcommand*{\CoDe}{\emph{CoDe}}
+ \newcommand*{\LinCoDe}{\emph{LinCoDe}}
+ \newcommand*{\CoNe}{\emph{CoNe}}
+ \newcommand*{\CoLiNe}{\emph{CoLiNe}}
+ \newcommand*{\LinCoLiNe}{\emph{LinCoLiNe}}
+
+ % inter eye distance
+ \newcommand*{\ied}{IED}
+
+ %-----------------------------------------------------------------------------
+ % Koerper
+ %%\newcommand*{\RR}{\mathbb{R}}
+ %\newcommand*{\RR}{{I\hspace{-3.5pt}R}}
+ %\newcommand*{\RR}{{\mathrm{I\hspace{-2.7pt}R}}}
+
+ \font\dsfnt=dsrom12
+
+ \DeclareSymbolFont{nark}{U}{dsrom}{m}{n}
+ \DeclareMathSymbol{\NN}{\dsfnt}{nark}{`N}
+ \DeclareMathSymbol{\RR}{\dsfnt}{nark}{`R}
+ \DeclareMathSymbol{\ZZ}{\dsfnt}{nark}{`Z}
+
+ %-----------------------------------------------------------------------------
+ % Domains
+ \newcommand*{\D}{\mathcal{D}}
+ \newcommand*{\I}{\mathcal{I}}
+
+ %-----------------------------------------------------------------------------
+ % Texture coordinates
+ \newcommand*{\rr}{\VEC{r}}
+
+ %-----------------------------------------------------------------------------
+ % Parameters
+ \newcommand*{\pt}{\VEC{\tau}}
+ \newcommand*{\pr}{\VEC{\rho}}
+ \newcommand*{\pp}{\VEC{p}}
+ \newcommand*{\qq}{\VEC{q}}
+ \newcommand*{\xx}{\VEC{x}}
+ \newcommand*{\deltaq}{\Delta \qq}
+ \newcommand*{\deltap}{\Delta \pp}
+ \newcommand*{\zz}{\VEC{z}}
+ \newcommand*{\pa}{\VEC{\alpha}}
+ \newcommand*{\qa}{\VEC{\alpha}}
+ \newcommand*{\pb}{\VEC{\beta}}
+
+ %-----------------------------------------------------------------------------
+ % Optimal appearance parameters
+ \newcommand*{\pbh}[1]{\ensuremath{\hat{\pb}({#1})}}
+
+ %-----------------------------------------------------------------------------
+ % Warp basis
+ \newcommand*{\M}[1]{\ensuremath{M({#1})}}
+ \newcommand*{\LL}[1]{\ensuremath{L({#1})}}
+
+ %-----------------------------------------------------------------------------
+ % Matrices of the texture model
+ \newcommand*{\AM}[1]{\ensuremath{\Lambda(#1)}}               % Lambda(beta)
+ \newcommand*{\AMr}[2]{\ensuremath{\Lambda(#1; #2)}}        % Lambda(r, beta)
+
+ \newcommand*{\As}{A}         % Continuous Basis symbol
+ \newcommand*{\afs}{a}        % Continuous mean symbol
+ \newcommand*{\A}[1]{\As(#1)}         % Continuous Basis
+ \newcommand*{\af}[1]{\afs(#1)}        % Continuous mean
+
+
+ %-----------------------------------------------------------------------------
+ % Matrices of the shape model
+ \newcommand*{\MU}{\VEC{\mu}}
+ \newcommand*{\MM}{\MAT{M}}
+
+ %-----------------------------------------------------------------------------
+ %% The project out matrix and operator
+ \newcommand*{\INT}{\MAT{P}}
+ \newcommand*{\INTf}{P}
+
+ %-----------------------------------------------------------------------------
+ % The identity matrix
+ \newcommand*{\EYEtwo}{\Matrix{1 & 0\\0&1}}
+ \newcommand*{\EYE}{\MAT E}
+ \newcommand*{\EYEf}{E}
+
+ % Wether to use subscripts or brackets for some function arguments
+ % can be decided by commenting out the corresponding functions underneath
+ %-----------------------------------------------------------------------------
+ % Mapping
+ \newcommand*{\Cs}[1]{\ensuremath{C^{#1}}} % C symbol
+ \newcommand*{\C}[2]{\ensuremath{C^{#1}(#2)}} % Use C with brackets
+
+ %-----------------------------------------------------------------------------
+ % Objective function
+ \newcommand*{\Fs}{\ensuremath{F}}              % F symbol
+ \newcommand*{\F}[1]{\ensuremath{\Fs(#1)}}       % Use F with brackets    F(q)
+
+ %-----------------------------------------------------------------------------
+ % Approximated objective functions
+ \newcommand*{\FFs}{\tilde{F}}                     % ~F symbol
+ \newcommand*{\FF}[1]{\ensuremath{\FFs(#1)}}       % Use ~F with brackets    F(q)
+
+ %-----------------------------------------------------------------------------
+ % residual function
+ \newcommand*{\es}{\ensuremath{f}}              % R symbol
+
+ \newcommand*{\e}[1]{\ensuremath{\es(#1)}}         % R(q)
+ \newcommand*{\er}[2]{\ensuremath{\es(#1; #2)}}    % R(r; q)
+
+ %-----------------------------------------------------------------------------
+ % Approximated residual functions
+ \newcommand*{\ees}{\tilde{f}}                       % ~R symbol
+ \newcommand*{\ee}[1]{\ensuremath{\ees(#1)}}       % ~R(q)
+ \newcommand*{\eer}[2]{\ensuremath{\ees(#2; #1)}}  % ~R(r; q)
+
+ %-----------------------------------------------------------------------------
+ % Warps
+ \newcommand*{\Vs}{\ensuremath{V}}
+ \newcommand*{\VLins}{\ensuremath{\Vs^{\text{Ortho}}}}
+ \newcommand{\VModels}{\ensuremath{\Vs^{\text{Model}}}}
+ \newcommand*{\Ws}{\ensuremath{W}}
+
+ \newcommand{\V}[1]{\ensuremath{\Vs(#1)}}
+ \newcommand{\VModel}[1]{\ensuremath{\VModels(#1)}}
+ \newcommand{\Vr}[2]{\ensuremath{\Vs(#1; #2)}}
+ \newcommand{\VInvr}[2]{\ensuremath{\Vs^{-1}(#1; #2)}}
+ \newcommand{\VrLin}[2]{\ensuremath{\VLins(#1; #2)}}
+ \newcommand{\W}[1]{\ensuremath{\Ws(#1)}}
+ \newcommand{\Winv}[1]{\ensuremath{\Ws^{-1}(#1)}}
+ \newcommand{\Wr}[2]{\ensuremath{\Ws(#1; #2)}}
+
+ \patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+ \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+ \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Begin of Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Here starts the poster
+%%---------------------------------------------------------------------------
+%% Format it to your taste with the options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{poster}{
+ % Show grid to help with alignment
+ grid=false,
+ % Column spacing
+ colspacing=0.7em,
+ % Color style
+ headerColorOne=cyan!20!white!90!black,
+ borderColor=cyan!30!white!90!black,
+ % Format of textbox
+ textborder=faded,
+ % Format of text header
+ headerborder=open,
+ headershape=roundedright,
+ headershade=plain,
+ background=none,
+ bgColorOne=cyan!10!white,
+ headerheight=0.13\textheight}
+ % Eye Catcher
+ {
+      \includegraphics[width=0.1 \linewidth]{logo_paiss}
+ }
+ % Title
+ {\sc\Huge Detecting Urban Changes with Recurrent Neural Networks from Multi-Temporal Sentinel-2 Data}
+  % Authors
+  {Maria Papadomanolaki*, \textbf{Sagar Verma*}, Maria Vakalopoulou, Siddharth Gupta, Konstantinos Karantzalos \\
+  {\texttt{mar.papadomanolaki@gmail.com, \{sagar.verma,maria.vakalopoulou\}@centralesupelec.fr, sid@granular.ai, karank@central.ntua.gr}}}
+  % University logo
+  {
+   \begin{tabular}{r r}
+     \multicolumn{2}{c}{\includegraphics[height=0.07\textheight]{logo_cvn}} \\
+     \includegraphics[height=0.06\textheight]{logo_rslab} &
+     \includegraphics[height=0.06\textheight]{logo_granularai} \\
+   \end{tabular}
+  }
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%% Now define the boxes that make up the poster
+ %%%---------------------------------------------------------------------------
+ %%% Each box has a name and can be placed absolutely or relatively.
+ %%% The only inconvenience is that you can only specify a relative position
+ %%% towards an already declared box. So if you have a box attached to the
+ %%% bottom, one to the top and a third one which should be in between, you
+ %%% have to specify the top and bottom boxes before you specify the middle
+ %%% box.
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \headerbox{Change Detection}{name=abstract,column=0,row=0,span=1}{
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ The general problem of monitoring the urban system and discerning changes that are occurring within that system that are of use to urban planners, managers, and researchers \cite{DUEKER197289}.
+
+   \begin{center}
+     \begin{tabular}{@{}c c@{}c}
+       \raisebox{-.5\height}{\includegraphics[scale=0.13]{day1}} &
+       \raisebox{-.5\height}{\includegraphics[scale=0.13]{day2}}\\
+       \vspace{1mm}
+       \textbf{Date1} & \textbf{Date2}
+     \end{tabular}
+   \end{center}
+
+
+   }
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \headerbox{Problem Statement}{name=contributions,column=0,below=abstract}{
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+     Using multidate Sentinel-2 images to effectively learn urban changes while minimizing errors due to seasonal changes and clouds.
+
+     \begin{center}
+         \raisebox{-.5\height}{\includegraphics[scale=0.2]{cloud_shadows}} \\
+         \vspace{1mm}
+         \textbf{Clouds \& Shadows} \\
+         \vspace{1.5mm}
+         \raisebox{-.5\height}{\includegraphics[scale=0.2]{farms}}\\
+         \vspace{1mm}
+         \textbf{Vegetation \& Farms} \\
+     \end{center}
+
+ }
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \headerbox{Related Work}{name=relatedwork,column=0,below=contributions, span=1}{
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \begin{itemize}
+    \item Review Article Digital Change Detection Techniques using Remotely-Sensed Data \cite{singh1989}.
+    % \item Urban Change Detection in SAR Images by Interactive Learning \cite{saux2013}.
+    \item Continuous Change Detection and Classification of Land Cover using all Available Landsat Data \cite{zhu2014}.
+    \item Learning Spectral-Spatial-Temporal Features via a Recurrent Neural Network for Change Detection in Multispectral Imagery \cite{mou2019}.
+    \item Urban Change Detection for Multispectral Earth Observation using Convolutional Neural Networks \cite{daudt2018urban}.
+    \item Fully Convolutional Siamese Networks for Change Detection \cite{daudt2018fully}.
+   \end{itemize}
+
+ }
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \headerbox{Proposed Architecture}{name=architecture,column=1,row=0,span=2}{
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \begin{center}
+      \includegraphics[scale=0.25]{arch_full}
+  \end{center}
+
+ }
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \headerbox{Qualitative Evaluation}{name=results,column=1,below=architecture,span=2}{
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \setlength{\tabcolsep}{8pt}
+
+  \begin{center}
+   \begin{tabular}{c}
+     \includegraphics[scale=0.25]{qual} \\
+    \end{tabular}
+    \end{center}
+
+
+ }
+
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \headerbox{Quantitative Results}{name=results2,column=3,row=0}{
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          \begin{center}
+            \includegraphics[scale=0.15]{results} \\
+          \end{center}
+
+    \footnotesize\textbf{ Quantitative evaluation of the proposed framework.}
+
+    }
+
+
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \headerbox{Future Work}{name=future,column=3,below=results2}{
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \textbf{Big change detection:} 100+ cities, 10000+ polygons, Multi-task , Multi-resolution, Multi-date
+
+      \begin{center}
+        \includegraphics[scale=0.15]{future} \\
+      \end{center}
+
+
+        }
+
+
+ % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %   \headerbox{}{name=results2,column=3,row=0}{
+ % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %         \begin{center}
+ %
+ %
+ %         \end{center}
+ %
+ %   \footnotesize\textbf{Top and bottom of each subfigure shows predicted and ground truth sequence respectively.}
+ %
+ %   }
+
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \headerbox{References}{name=references,column=3,below=future}{
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+     \bibliographystyle{IEEEbib}
+      \tiny\bibliography{PAISS_CD}
+
+    }
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \headerbox{Acknowledgement}{name=ack,column=3,below=references,above=bottom}{
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \tiny This work has been done at Universit\'e Paris-Saclay, CentraleSup\'elec, Inria, Centre de Vision Num\'erique, 91190, Gif-sur-Yvette, France in collaboration with Remote Sensing Lab, National Technical University of Athens, Greece, and Granular AI, Boston, MA, USA. We thank all our collaborators.
+
+    }
+
+
+
+
+\end{poster}%
+%
+\end{document}

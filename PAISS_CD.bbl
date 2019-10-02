@@ -1,0 +1,40 @@
+\begin{thebibliography}{1}
+
+\bibitem{DUEKER197289}
+Kenneth~J Dueker and Frank~E Horton,
+\newblock ``Urban-change detection systems: Remote-sensing inputs,''
+\newblock {\em Photogrammetria}, vol. 28, no. 3, pp. 89 -- 106, 1972.
+
+\bibitem{singh1989}
+Ashbindu Singh,
+\newblock ``Review article digital change detection techniques using
+  remotely-sensed data,''
+\newblock {\em International Journal of Remote Sensing}, vol. 10, no. 6, pp.
+  989--1003, 1989.
+
+\bibitem{zhu2014}
+Zhe Zhu and Curtis~E. Woodcock,
+\newblock ``Continuous change detection and classification of land cover using
+  all available landsat data,''
+\newblock {\em Remote Sensing of Environment}, vol. 144, pp. 152 -- 171, 2014.
+
+\bibitem{mou2019}
+L.~{Mou}, L.~{Bruzzone}, and X.~X. {Zhu},
+\newblock ``Learning spectral-spatial-temporal features via a recurrent
+  convolutional neural network for change detection in multispectral imagery,''
+\newblock {\em Transactions on Geoscience and Remote Sensing}, vol. 57, no. 2,
+  pp. 924--935, 2019.
+
+\bibitem{daudt2018urban}
+R.~{Caye Daudt}, B.~{Le Saux}, A.~Boulch, and Y.~Gousseau,
+\newblock ``Urban change detection for multispectral earth observation using
+  convolutional neural networks,''
+\newblock in {\em International Geoscience and Remote Sensing Symposium}, July
+  2018.
+
+\bibitem{daudt2018fully}
+R.~{Caye Daudt}, B.~{Le Saux}, and A.~Boulch,
+\newblock ``Fully convolutional siamese networks for change detection,''
+\newblock in {\em International Conference on Image Processing}, October 2018.
+
+\end{thebibliography}
